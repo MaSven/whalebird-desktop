@@ -41,6 +41,7 @@ $ npm run dev
 ```
 
 ## Release
+### packaging
 
 I prepared Makefile for production release.
 
@@ -50,6 +51,37 @@ $ make VERSION=0.1.0 PLATFORM=linux
 
 # for mac
 $ make VERSION=0.1.0 PLATFORM=darwin CERTNAME="Develper ID Application: NAME (ID)"
+```
+
+### App Store
+
+Create release package.
+
+```bash
+# for app store
+$ make store VERSION=0.1.0 PLATFORM=mas CERTNAME="3rd Party Mac Developer Application: NAME (ID)"
+```
+
+And add the follwing code in `packages/whalebird-mas-x64/whalebird.app/Contents/Info.plist`:
+
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+...
+    <key>ElectronTeamID</key>
+    <string>TeamID</string>
+  </dict>
+</plist>
+```
+
+You can find TeamID on your Apple developer account.
+
+After that, create pkg.
+
+```bash
+$ ./packageAppStore.sh ./packages/whalebird-mas-x64/whalebird.app "3rd Party Mac Developer Application: NAME (ID)" "3rd Party Mac Developer Installer: NAME (ID)"
 ```
 
 # License
